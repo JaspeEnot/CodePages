@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  
+  <style type="text/css">
+body {
+  background-color: #999999;
+}
+#main_article {
+  padding: 10px;
+  margin-left: 5%;
+  font-size: 14pt;
+  margin-right: 5%;
+  width: 90%;
+  min-height: 90%;
+  background-color: #f0f0f0;
+  color: black;
+}
+.text {
+  font-family: "Courier New",Courier,monospace;
+  font-size: 14pt;
+  background-color: #f0f0f0;
+color: black;
+}
+.image_left_wrap {
+  display: block;
+  position: relative;
+  float: left;
+  clear: none;
+  padding-right: 20px;
+}
+#printed tr,td{
+	padding-top:8px;
+	padding-bottom:8px;
+	padding-left:10px;
+	padding-right:10px;
+}
+h1 {
+  font-size: 14pt;
+  font-family: "Courier New",Courier,monospace;
+  text-align: center;
+}
+h2 {
+  font-size: 14pt;
+  font-family: "Courier New",Courier,monospace;
+
+}
+.smalltext{
+	font-size: 10pt;
+}
+.button_submit{
+ background:#0a0; 
+ width:100px; 
+ padding-left: 20px; 
+ padding-right: 20px;
+ padding-top: 5px; 
+ padding-bottom: 5px;
+ font-weight: bolder;
+ margin-top:2px;
+ border-left: 1px solid #eee; 
+ border-top: 2px solid #efefef; 
+ border-right: 3px solid #f0f0f0; 
+ border-bottom: 4px solid white;
+ border-bottom-left-radius:5px 3px; 
+ border-bottom-right-radius:5px 3px;
+ border-top-left-radius:5px 3px; 
+ border-top-right-radius:5px 3px;
+ box-shadow: rgba(0, 255, 0, 1) -20px -10px 40px -10px i#nset
+}
+#author{
+font-size: 14pt;
+}
+#css_styles{
+ font-size: 10pt;
+}
+.code_typename{
+ color: #e0e;
+}
+.code_quote{
+ color: #0e0;
+}
+.code_braces{
+ color: #00e;
+}
+.code_iostr{
+ color: #449;
+}
+.code_instr{
+ color: #00d;
+}
+.code_inquote{
+ color: #0c0;
+
+}
+.code_cycles{
+ color: #0000f9;
+}
+.code_branches{
+ color: #90f;
+}
+.code_struucts{
+ color: #20e;
+}
+.code_privs{
+ color: #30e;
+}
+  </style>
+  <script>
+  function replaceArrayElems(str,arr,cssClass)
+  {
+	var preA=str;
+	var a=str;
+	for( var name of arr )
+	{
+		a=preA.replaceAll(name,'<span ###="'+cssClass+'">'+name+'</span>');
+		preA=a;
+	}
+	return a;
+  }
+	function mainf()
+	{
+		var inp=document.getElementById('input_form').value;
+		var outp=document.getElementById('output');
+		var outpForm=document.getElementById('output_form');
+		console.log("Input:");
+		console.log(inp);
+		
+		var pre1=inp.replaceAll("<","&lt;");
+		var pre2=pre1.replaceAll(">","&gt;");
+		var pre3=pre2.replaceAll("\n","<br>\n");
+		var pre4=pre3.replaceAll(" ","&nbsp;");
+		var pre5=pre4.replaceAll("\t","&nbsp;&nbsp;&nbsp;&nbsp;");
+		
+		var arr_iostr=["cout","endl"];
+		var arr_quotes=["'"];
+		var arr_braces=["{","}","(",")"];
+		var arr_typenames=["int","char","string","double","float","void", "auto"];
+		var arr_structs=["enum","class","struct","template"];
+		var arr_cycles=["for","while"];
+		var arr_ifs=["if","switch","case","default"];
+		var arr_instr=["return","define","include","decltype","using"];
+		var arr_privs=["private","public","protected"];
+		
+		var preA=pre5;
+		var regexpFrom=/"(.*)"/;
+		var preA1=preA.replace(regexpFrom,'<span ###="code_inquote">"$1"</span>');
+		console.log(preA1);
+		var a=preA1;
+
+		a=replaceArrayElems(a,arr_structs,"code_struucts");
+		a=replaceArrayElems(a,arr_quotes,"code_quote");
+		a=replaceArrayElems(a,arr_braces,"code_braces");
+		a=replaceArrayElems(a,arr_iostr,"code_iostr");
+		a=replaceArrayElems(a,arr_typenames,"code_typename");
+		a=replaceArrayElems(a,arr_instr,"code_instr");
+		a=replaceArrayElems(a,arr_cycles,"code_cycles");
+		a=replaceArrayElems(a,arr_privs,"code_privs");
+
+		a=a.replaceAll("###","class");
+		//a=replaceArrayElems(a,arr_ifs,"code_branches");
+		
+		outpForm.value=a;
+		outp.innerHTML=a;
+	}
+  </script><title>Jaspe Colorizer-CSS</title></head><body onload="mainf()">
+  <div id="main_article" class="text">
+  <h1>Jaspe Colorizer-CSS</h1>
+  
+  <h1><font size="-1">Подсветка синтаксиса. C++.</font></h1>
+  
+  Внимание! Для нормальной работы подсветки на страницу
+  с подсвечиваемым кодом нужно добавить CSS - стили.
+  Они приводятся в самом низу страницы.<br>
+  <br>
+
+<br>
+  <h2>Так будет выглядеть код:</h2>
+<div id="output"><pre>Output</pre></div>
+
+<br>
+ <h2>Скопируйте код сюда:</h2>
+  <div style=""><form method="get" name="Form1">
+	<textarea cols="60" rows="10" id="input_form">std::vector<int> arr={10,20,5,60};
+for( auto& a: arr )
+{
+    a+=100;
+}
+</textarea>
+<div onclick="mainf();" class="button_submit">Submit</div><br>
+
+<h2>Результат:</h2>
+<div class="smalltext">Можно скопировать и вставить себе на страницу.</div>
+<textarea cols="60" rows="10" id="output_form">Output
+</textarea>
+</form></div>
+
+</form>
+ CSS - стили
+ <div id="css_styles">
+	  <pre>.code_typename{
+ color: #e0e;
+}
+.code_quote{
+ color: #0e0;
+}
+.code_braces{
+ color: #00e;
+}
+.code_iostr{
+ color: #449;
+}
+.code_instr{
+ color: #00d;
+}
+.code_inquote{
+ color: #0c0;
+
+}
+.code_cycles{
+ color: #0000f9;
+}
+.code_branches{
+ color: #90f;
+}
+.code_struucts{
+ color: #20e;
+}</pre>
+  </div
+  <font size="-1">
+<i>Лицензия ( Copyleft ):</i> <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0 ( СС0 )</a><br>
+Вы можете свободно копировать, распространять, продавать данную статью. <br>
+По возможности, желательно указание автора и\или ссылки на сайт.<br>
+<br>
+</font>
+  <div id="author">Автор: Jaspe. E-mail: publish@jaspe.ru.</div>
+</body></html>
